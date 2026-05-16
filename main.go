@@ -77,16 +77,16 @@ func MobileNumber(w http.ResponseWriter, r *http.Request) {
 func UCard(w http.ResponseWriter, r *http.Request) {
 	var visa Card
 	VList := []Card{
-		{CardNumber: 1234567898765432, Format: "visa", User},
-		{CardNumber: 1111222233334444, Format: "visa", User},
-		{CardNumber: 5555666677778888, Format: "visa", User},
-		{CardNumber: 0000111122223333, Format: "visa", User},
+		{CardNumber: 1234567898765432, User},
+		{CardNumber: 1111222233334444, User},
+		{CardNumber: 5555666677778888, User},
+		{CardNumber: 0000111122223333, User},
 	}
 
 	VTList := []transactions{
-		{ID: 001, Amount: 150.75, Currency: "USD", Type: "in", Format:},
-		{ID: 002, Amount: 320.00, Currency: "TJS", Type: "in", Format:},
-		{ID: 003, Amount: 89.99, Currency: "TJS", Type: "out", Format:},
+		{ID: 001, Amount: 150.75, Currency: "USD", Type: "in"},
+		{ID: 002, Amount: 320.00, Currency: "TJS", Type: "in"},
+		{ID: 003, Amount: 89.99, Currency: "TJS", Type: "out"},
 	}
 	visa.Transactions = VTList
 
@@ -116,7 +116,8 @@ func TransferCriptoToCard(w http.ResponseWriter, r *http.Request) {
 }
 
 Transfer := []transactions{
-{ID: 001, Amount: 500.00, Currency: "TJS", Type: "in"}
+{ID: 001, Amount: 500.00, Currency: "TJS", Type: "in"},
+{}
 }
 
 type km struct{
@@ -125,17 +126,34 @@ type km struct{
 }
 
 kmNumber := []km{
-	{6278, KMNumber},
-	{5152, KMNumber},
-	{5440, KMNumber},
+	{PrefixBIN: 6278, KMNumber},
+	{PrefixBIN: 5152, KMNumber},
+	{PrefixBIN: 5440, KMNumber},
 }
 
-//if 6278, 5152, 5440
+//if km 6278, 5152, 5440
 
-if km(PrefixBIN) {
+if km(6278, 5152, 5440) {
 		http.Error(w, "Wrong Card Number", http.StatusBadRequest)
 		return
 	}
+
+//
+
+if visa(992) {
+		http.Error(w, "Wrong Card Number", http.StatusBadRequest)
+		return
+	}
+
+func TokenizeVisaCard(cardNumber string) string {
+	visacard := "****************"
+
+	token := TokenizeVisaCard(visacard)
+
+	fmt.Println("VisaCard:", visacard)
+	fmt.Println("Token:", token)
+}
+
 }
 
 
