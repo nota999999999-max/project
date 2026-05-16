@@ -21,8 +21,6 @@ type MobileN struct {
 
 type Card struct {
 	CardNumber   int
-	UName        string
-	ExpiryDate   string
 	CardType     string
 	Transactions []transactions
 }
@@ -53,79 +51,58 @@ func DroperHandler(w http.ResponseWriter, r *http.Request) {
 
 func UsersList(w http.ResponseWriter, r *http.Request) {
 	users := [5]User{
-		{Name: "Muhammadjon S", MobileNumber: "", Card: 9876543212345678},
-		{Name: "Parviz H", MobileNumber: "", Card: 1234567898765432},
-		{Name: "Zarina A", MobileNumber: "", Card: 1111222233334444},
-		{Name: "Bezhan Sh", MobileNumber: "", Card: 5555666677778888},
-		{Name: "Guldofarin Kh", MobileNumber: "", Card: 0000111122223333},
+		{Name: "Muhammadjon S", MobileNumber, Card: 9876543212345678},
+		{Name: "Parviz H", MobileNumber, Card: 1234567898765432},
+		{Name: "Zarina A", MobileNumber, Card: 1111222233334444},
+		{Name: "Bezhan Sh", MobileNumber, Card: 5555666677778888},
+		{Name: "Guldofarin Kh", MobileNumber, Card: 0000111122223333},
+
 	}
 	fmt.Println(users)
 }
 
 func MobileNumber(w http.ResponseWriter, r *http.Request) {
 	var number MobileN
-
+	
 	MList := []mobileN{
-		{
-			Prefix: +
-			Country: 992
-			Number: 000111111
-		},
-		{
-			Prefix: +
-			Country: 992
-			Number: 000222222
-
-		},
-		{
-			Prefix: +
-			Country: 998
-			Number: 000333333
-
-		},
-		{
-			Prefix: +
-			Country: 992
-			Number: 000444444
-
-		},
-		{
-			Prefix: +
-			Country: 7
-			Number: 000555555
-
-		},
+		{Prefix: "+", Country: 992, Number: 000111111},
+		{Prefix: "+", Country: 992, Number: 000222222},
+		{Prefix: "+", Country: 998, Number: 000333333},
+		{Prefix: "+", Country: 992, Number: 000444444},
+		{Prefix: "+", Country: 7, Number: 000555555},
 	}
 		fmt.Println("Mobile Number:", number)
 }
 
 func UCard(w http.ResponseWriter, r *http.Request) {
 	var visa Card
-
-	TList := []transactions{
-		{
-			ID:       001,
-			Amount:   150.75,
-			Currency: "USD",
-			Type:     "in",
-		},
-		{
-			ID:       002,
-			Amount:   320.00,
-			Currency: "TJS",
-			Type:     "in",
-		},
-		{
-			ID:       003,
-			Amount:   89.99,
-			Currency: "TJS",
-			Type:     "out",
-		},
+	VList := []Card{
+		{CardNumber: 1234567898765432, CardType: "visa", User},
+		{CardNumber: 1111222233334444, CardType: "visa", User},
+		{CardNumber: 5555666677778888, CardType: "visa", User},
+		{CardNumber: 0000111122223333, CardType: "visa", User},
 	}
 
-	visa.Transactions = TList
+	VTList := []transactions{
+		{ID: 001, Amount: 150.75, Currency: "USD", Type: "in"},
+		{ID: 002, Amount: 320.00, Currency: "TJS", Type: "in"},
+		{ID: 003, Amount: 89.99, Currency: "TJS", Type: "out"}
+	}
+	visa.Transactions = VTList
 
-	fmt.Println("Card", visa)
+	var км Card
+	KMTList := []Card{
+		{CardNumber: 9876543212345678, CardType: "км", User},
+	}
+
+	KMTList := []transactions{
+		{ID: 001, Amount: 500.00, Currency: "TJS", Type: "in"},
+		{ID: 002, Amount: 35.00, Currency: "TJS", Type: "out"},
+		{ID: 003, Amount: 1500.00, Currency: "TJS", Type: "in"}
+	}
+	km.Transactions = KMTList
+
+	fmt.Println("Card", visa, km)
 
 }
 
