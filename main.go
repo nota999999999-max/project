@@ -9,8 +9,29 @@ import (
 
 type User struct {
 	Name         string `json:"name"`
-	MobileNumber string `json:"mobile"`
-	Card         int    `json:"card"`
+	MobileNumber []MobileN
+	Card         []Card
+}
+
+type MobileN struct {
+	Prefix   string
+	Country  int
+	Number   int
+}
+
+type Card struct {
+	CardNumber   int
+	UName        string
+	ExpiryDate   string
+	CardType     string
+	Transactions []transactions
+}
+
+type transactions struct {
+	ID       int
+	Amount   float64
+	Currency string
+	Type     string
 }
 
 var users = make(map[string]User)
@@ -20,7 +41,7 @@ func main() {
 	r.HandleFunc("/user", UsersList).Methods("POST")
 	r.HandleFunc("/", DroperHandler).Methods("GET")
 	r.HandleFunc("/mobile", MobileNumber).Methods("GET")
-	r.HandleFunc("/card", Card).Methods("GET")
+	r.HandleFunc("/card", UCard).Methods("GET")
 	r.HandleFunc("/droper", Dropers).Methods("GET")
 	fmt.Println("List")
 	http.ListenAndServe(":8080", r)
@@ -32,60 +53,56 @@ func DroperHandler(w http.ResponseWriter, r *http.Request) {
 
 func UsersList(w http.ResponseWriter, r *http.Request) {
 	users := [5]User{
-		{Name: "Muhammadjon S", MobileNumber: "+992", Card: 9876543212345678},
-		{Name: "Parviz H", MobileNumber: "+992", Card: 1234567898765432},
-		{Name: "Zarina A", MobileNumber: "+998", Card: 1111222233334444},
-		{Name: "Bezhan Sh", MobileNumber: "+992", Card: 5555666677778888},
-		{Name: "Guldofarin Kh", MobileNumber: "+7", Card: 0000111122223333},
+		{Name: "Muhammadjon S", MobileNumber: "", Card: 9876543212345678},
+		{Name: "Parviz H", MobileNumber: "", Card: 1234567898765432},
+		{Name: "Zarina A", MobileNumber: "", Card: 1111222233334444},
+		{Name: "Bezhan Sh", MobileNumber: "", Card: 5555666677778888},
+		{Name: "Guldofarin Kh", MobileNumber: "", Card: 0000111122223333},
 	}
 	fmt.Println(users)
 }
 
-type mobileN struct {
-	Prefix   string
-	Country  int
-	MCompany string
-	Number   int
-}
-
 func MobileNumber(w http.ResponseWriter, r *http.Request) {
+	var number MobileN
 
-	var number Mobile
+	MList := []mobileN{
+		{
+			Prefix: +
+			Country: 992
+			Number: 000111111
+		},
+		{
+			Prefix: +
+			Country: 992
+			Number: 000222222
 
-	user.Mobile
+		},
+		{
+			Prefix: +
+			Country: 998
+			Number: 000333333
 
-	user := User{
+		},
+		{
+			Prefix: +
+			Country: 992
+			Number: 000444444
 
-		Country: CHN,
-		Mobile:  "+",
+		},
+		{
+			Prefix: +
+			Country: 7
+			Number: 000555555
+
+		},
 	}
-
-	number := MobileNumber(user)
-
-	fmt.Println("Mobile Number:", number)
+		fmt.Println("Mobile Number:", number)
 }
 
-type Card struct {
-	CardNumber   int
-	Name         string
-	ExpiryDate   string
-	Currencies   string
-	CVV          int
-	Transactions []transactions
-}
-
-type transactions struct {
-	ID       int
-	Amount   float64
-	Currency string
-	Type     string
-}
-
-func Card(w http.ResponseWriter, r *http.Request) {
-
+func UCard(w http.ResponseWriter, r *http.Request) {
 	var visa Card
 
-	trnList := []transactions{
+	TList := []transactions{
 		{
 			ID:       001,
 			Amount:   150.75,
@@ -106,9 +123,9 @@ func Card(w http.ResponseWriter, r *http.Request) {
 		},
 	}
 
-	visa.Transactions = trnList
+	visa.Transactions = TList
 
-	fmt.Println(visa)
+	fmt.Println("Card", visa)
 
 }
 
