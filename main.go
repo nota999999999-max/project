@@ -82,9 +82,22 @@ func MobileNumber(w http.ResponseWriter, r *http.Request) {
 
 
 type Card struct {
-	CardNumber   int
-	CardType     string
+	CardNumber   int `json:"card"`
+	CardFormat     string `json:"type"`
 	Transactions []transactions
+}
+
+type VCard struct {
+	VNumberNumber int
+}
+
+type KMCard struct {
+	PrefixBIN int
+	KMNumberNumber int
+}
+
+type UPCard struct {
+	UPNumberNumber int
 }
 
 type transactions struct {
@@ -98,56 +111,62 @@ var users = make(map[string]User)
 
 
 func UCard(w http.ResponseWriter, r *http.Request) {
-	var visa Card
-	VList := []Card{
-		{CardNumber: 1234567898765432, User},
-		{CardNumber: 1111222233334444, User},
-		{CardNumber: 5555666677778888, User},
-		{CardNumber: 0000111122223333, User},
-	}
 
-	VTList := []transactions{
+	var visa CardFormat
+	var km CardFormat
+	var up CardFormat
+
+	VList := []Card{
+		{CardNumber: 1234567898765432},
+		{CardNumber: 1111222233334444},
+		{CardNumber: 5555666677778888},
+			
+		VTList := []transactions{
 		{ID: 001, Amount: 150.75, Currency: "USD", Type: "in"},
 		{ID: 002, Amount: 320.00, Currency: "TJS", Type: "in"},
 		{ID: 003, Amount: 89.99, Currency: "TJS", Type: "out"},
 	}
 	visa.Transactions = VTList
+}
 
-	var km Card
+	
 	KMTList := []Card{
-		{CardNumber: 9876543212345678, Format: "km", User},
-	}
-
-	KMTList := []transactions{
-		{ID: 001, Amount: 500.00, Currency: "TJS", Type: "in"},
-		{ID: 002, Amount: 35.00, Currency: "TJS", Type: "out"},
-		{ID: 003, Amount: 1500.00, Currency: "TJS", Type: "in"}
+		{CardNumber: 9876543212345678},
+		
+		KMTList := []transactions{
+		{ID: 004, Amount: 500.00, Currency: "TJS", Type: "in"},
+		{ID: 005, Amount: 35.00, Currency: "TJS", Type: "out"},
+		{ID: 006, Amount: 1500.00, Currency: "TJS", Type: "in"}
 	}
 	km.Transactions = KMTList
+}
 
-	fmt.Println("Card", visa, km)
+	UPTList := []Card{
+		{CardNumber: 0000111122223333},
+	UPList :=[]transactions{
+		{ID: 007, Amount: 300.00, Currency: "TJS", Type: "in"}
+	}
+
+	fmt.Println("Card", visa, km, up)
+}
 }
 
 func TransferCriptoToCard(w http.ResponseWriter, r *http.Request) {
+
 	var cripto Coin
 
 	type Coin struct {
 	Name       string  //BTC
-	Amount     float64  //
+	Amount     float64
 	WalletAdress string //bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
 }
 
 Transfer := []transactions{
 {ID: 001, Amount: 500.00, Currency: "TJS", Type: "in"},
-{}
+{ID: 002, Amount: 320.00, Currency: "TJS", Type: "in"}
 }
 
-type km struct{
-	PrefixBIN int
-	KMNumberNumber int
-}
-
-kmNumber := []km{
+kmNumber := []KMCard{
 	{PrefixBIN: 6278, KMNumber},
 	{PrefixBIN: 5152, KMNumber},
 	{PrefixBIN: 5440, KMNumber},
